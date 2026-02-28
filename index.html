@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SaarthiBot - AI Public Assistant</title>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1416.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            text-align: center;
+            padding: 40px;
+        }
+        #chatBox {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input {
+            width: 70%;
+            padding: 10px;
+        }
+        button {
+            padding: 10px;
+            background: #232f3e;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .bot {
+            color: green;
+            margin: 10px 0;
+        }
+        .user {
+            color: blue;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h2>🤖 SaarthiBot - AI Public Assistant</h2>
+
+<div id="chatBox">
+    <div id="messages"></div>
+    <input type="text" id="userInput" placeholder="Type your question..." />
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+AWS.config.region = 'ap-southeast-1';
+
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'YOUR_COGNITO_IDENTITY_POOL_ID'
+});
+
+var lexruntime = new AWS.LexRuntimeV2();
+
+function sendMessage() {
+    var inputText = document.getElementById("userInput").value;
+    document.getElementById("messages").innerHTML += "<div class='user'>You: " + inputText + "</div>";
+
+    var params = {
+        botAliasId: "TSTALIASID",
+        botId: "D8UVP7Z4AV",
+        localeId: "en_IN",
+        sessionId: "demo-session",
+        text: inputText
+    };
+
+    lexruntime.recognizeText(params, function(err, data) {
+        if (err) {
+            console.log(err, err.stack);
+        } else {
+            if (data.messages) {
+                document.getElementById("messages").innerHTML += "<div class='bot'>Bot: " + data.messages[0].content + "</div>";
+            }
+        }
+    });
+
+    document.getElementById("userInput").value = "";
+}
+</script>
+
+</body>
+</html>
