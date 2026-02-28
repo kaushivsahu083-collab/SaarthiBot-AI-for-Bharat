@@ -121,6 +121,7 @@ button {
 </div>
 
 <script>
+
 AWS.config.region = "ap-southeast-1";
 
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -128,6 +129,9 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 });
 
 const lexruntime = new AWS.LexRuntimeV2();
+
+/* NEW SESSION EVERY PAGE LOAD */
+const sessionId = crypto.randomUUID();
 
 function addMessage(text, sender) {
   const chat = document.getElementById("chat");
@@ -143,7 +147,7 @@ async function sendToLex(message) {
     botId: "D8UVP7Z4AV",
     botAliasId: "TSTALIASID",
     localeId: "en_IN",
-    sessionId: "user-session",
+    sessionId: sessionId,
     text: message
   };
 
@@ -164,11 +168,14 @@ async function handleSend() {
   addMessage(input, "user");
   document.getElementById("userInput").value = "";
 
-  addMessage("Typing...", "bot");
+  const typingMsg = document.createElement("div");
+  typingMsg.className = "message bot";
+  typingMsg.innerText = "Typing...";
+  document.getElementById("chat").appendChild(typingMsg);
 
   const reply = await sendToLex(input);
 
-  document.getElementById("chat").lastChild.remove();
+  typingMsg.remove();
   addMessage(reply, "bot");
 }
 
@@ -177,6 +184,7 @@ function quickSend(text) {
   handleSend();
 }
 
+/* VOICE INPUT */
 function startVoice() {
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
   recognition.lang = "en-IN";
@@ -187,6 +195,7 @@ function startVoice() {
     handleSend();
   };
 }
+
 </script>
 
 </body>
