@@ -1,9 +1,9 @@
 # SaarthiBot – Voice AI for Bharat 🇮🇳
 
 SaarthiBot is a voice-based AI assistant built for the AI for Bharat Hackathon.  
-Our goal is simple: make essential public services accessible to people who cannot comfortably read or type.
+Our mission is to make essential public services accessible to people who cannot comfortably read or type.
 
-The assistant allows users to interact using simple spoken Hindi to access banking, railway, and hospital-related information.
+The assistant enables simple Hindi voice interaction for accessing banking, railway, and hospital-related information.
 
 ---
 
@@ -15,80 +15,106 @@ Build an AI-powered solution that improves access to information, resources, or 
 
 ## 💡 Our Approach
 
-Many public services in India are increasingly digital, but most systems are text-heavy and difficult for illiterate or low-literacy users.
+Many public services in India are digital but text-heavy and difficult for illiterate or low-literacy users.
 
 SaarthiBot solves this by:
 
 - Providing voice-first interaction
-- Using simple Hindi-style responses
+- Using simple spoken Hindi responses
 - Reducing dependency on written interfaces
 - Supporting access to essential public services
 
 ---
 
-## 🧩 Current Features
+## 🧩 Core Intents
 
-### 🏦 Bank Balance Enquiry
-Users can ask for their bank balance using spoken Hindi phrases such as:
+### 🏦 BankBalanceIntent
+Users can ask:
 - “Mera bank balance kya hai”
 - “Account mein kitna paisa hai”
 
-The bot responds with a simple voice output.
+The bot responds with a simple, spoken balance message.
 
 ---
 
 ### 🚆 Railway Assistance
 
-**RailwayTimingIntent**
+#### RailwayTimingIntent
 - Train timing information
 - Next 4-hour schedule queries
 - Platform details (simulated)
 
-**RailwayNavigationIntent**
+#### RailwayNavigationIntent
 - Platform direction guidance
 - Ticket counter assistance
+
+Example generative response:
+“सबसे पहले टिकट चेक गेट से अंदर जाएं। फिर सबसे नजदीक वाली एस्केलेटर या सीढ़ियों से ऊपर जाएं। वहां से सीधे दाएं मुड़ें और सीधे चलते जाएं, आपको प्लेटफ़ॉर्म नम्बर 3 दिखाई देगा।”
 
 ---
 
 ### 🏥 Hospital Guidance (In Progress)
 - Hospital registration support
-- OPD enquiry guidance
+- OPD enquiry assistance
 
 ---
 
-### 🤖 Generative AI Support
+## 🤖 Generative AI Integration
 
-SaarthiBot integrates Amazon Bedrock (Claude) to handle flexible, general public-service-related questions.
+SaarthiBot integrates **Amazon Bedrock using the Amazon Nova Lite model** to generate simplified, context-aware responses.
 
-This enables more natural and scalable conversational ability beyond fixed intents.
+This allows:
+- Flexible public service question handling
+- Simple Hindi response generation
+- Scalable conversational assistance
 
 ---
 
-## 🏗️ AWS Architecture
+## 🔍 Prompt Engineering Strategy
+
+To ensure accessibility for low-literacy users, prompts are designed to:
+
+- Force short responses
+- Avoid formatting or multiple options
+- Use simple spoken Hindi
+- Provide direct navigation instructions
+- Restrict unnecessary explanations
+
+Example prompt structure:
+
+“You are helping a person inside an Indian railway station.  
+Explain how to reach platform number 3 in very simple spoken Hindi.  
+Keep answer short.  
+No formatting.  
+One paragraph only.”
+
+---
+
+## 🏗️ AWS Serverless Architecture
 
 Voice User  
 ↓  
 Amazon Lex V2 (Intent Recognition & Dialogue Management)  
 ↓  
-AWS Lambda (Planned backend integration)  
+AWS Lambda (Planned Backend Integration)  
 ↓  
-Amazon Bedrock – Claude (Generative AI responses)  
+Amazon Bedrock – Nova Lite (Generative AI Responses)  
 ↓  
 Amazon Polly (Text-to-Speech)  
 ↓  
 Voice Response to User  
 
-This architecture is fully serverless and scalable using AWS managed services.
+This architecture is fully serverless, scalable, and built using AWS managed services.
 
 ---
 
 ## 🛠 AWS Services Used
 
-- Amazon Lex V2
-- Amazon Bedrock (Claude)
-- Amazon Polly
-- AWS Lambda (planned integration)
-- Serverless AWS infrastructure
+- Amazon Lex V2  
+- Amazon Bedrock (Amazon Nova Lite model)  
+- Amazon Polly  
+- AWS Lambda (planned integration)  
+- Serverless AWS infrastructure  
 
 ---
 
@@ -98,10 +124,8 @@ This architecture is fully serverless and scalable using AWS managed services.
 - Hindi-style utterance handling using English-India speech model
 - Voice interaction enabled in AWS console
 - Structured multi-intent architecture
-- Bedrock integration in progress
-- Functional prototype built during hackathon phase
-
-*Note: The current prototype uses simulated responses for demonstration purposes.*
+- Amazon Bedrock (Nova Lite) tested and functional
+- Functional hackathon prototype using simulated service responses
 
 ---
 
@@ -109,8 +133,8 @@ This architecture is fully serverless and scalable using AWS managed services.
 
 - Current prototype demonstrates Hindi-style utterance handling using English-India speech model.
 - Confirmation responses are currently handled using the default English confirmation model.
-- Future enhancement includes native Hindi speech recognition model integration.
-- Future work includes training custom confirmation recognition for regional affirmative responses like “haan”, “ji”, and “bilkul”.
+- Future enhancement includes native Hindi speech recognition integration.
+- Future work includes training custom confirmation recognition for regional responses like “haan”, “ji”, and “bilkul”.
 
 ---
 
@@ -120,14 +144,14 @@ This architecture is fully serverless and scalable using AWS managed services.
 - Secure authentication integration
 - Real public service API integration
 - Web deployment using AWS Amplify
-- Voice-enabled kiosk deployment model for railway stations and hospitals
+- Voice-enabled kiosk deployment in railway stations and hospitals
 
 ---
 
 ## 🌍 Social Impact
 
 SaarthiBot aims to reduce digital exclusion by enabling voice-based access to public services.  
-It empowers underserved communities to independently access important information without needing to read or navigate complex interfaces.
+It empowers underserved communities to independently access important information without relying on text-based systems.
 
 ---
 
