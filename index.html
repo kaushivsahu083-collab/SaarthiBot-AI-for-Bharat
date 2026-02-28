@@ -2,86 +2,178 @@
 <html>
 <head>
     <title>SaarthiBot - AI Public Assistant</title>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1416.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         body {
-            font-family: Arial;
-            background: #f4f6f8;
-            text-align: center;
-            padding: 40px;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        #chatBox {
-            width: 400px;
-            margin: auto;
+
+        .chat-container {
+            width: 95%;
+            max-width: 500px;
+            height: 90vh;
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0px 10px 40px rgba(0,0,0,0.3);
         }
-        input {
-            width: 70%;
-            padding: 10px;
-        }
-        button {
-            padding: 10px;
-            background: #232f3e;
+
+        .chat-header {
+            background: #1e3c72;
             color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .chat-box {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f5f7fb;
+        }
+
+        .message {
+            margin: 8px 0;
+            padding: 10px 14px;
+            border-radius: 15px;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .user {
+            background: #2a5298;
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+
+        .bot {
+            background: #e4e6eb;
+            color: black;
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background: white;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .chat-input button {
+            margin-left: 8px;
+            padding: 10px 14px;
+            border-radius: 50%;
             border: none;
+            background: #1e3c72;
+            color: white;
             cursor: pointer;
         }
-        .bot {
-            color: green;
-            margin: 10px 0;
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 8px;
+            gap: 6px;
         }
-        .user {
-            color: blue;
-            margin: 10px 0;
+
+        .suggestions button {
+            background: #e4e6eb;
+            border: none;
+            border-radius: 15px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
+
 <body>
 
-<h2>🤖 SaarthiBot - AI Public Assistant</h2>
+<div class="chat-container">
+    <div class="chat-header">
+        SaarthiBot 🤖
+    </div>
 
-<div id="chatBox">
-    <div id="messages"></div>
-    <input type="text" id="userInput" placeholder="Type your question..." />
-    <button onclick="sendMessage()">Send</button>
+    <div class="chat-box" id="chatBox">
+        <div class="message bot">Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?</div>
+    </div>
+
+    <div class="suggestions">
+        <button onclick="quickMessage('Mera bank balance kya hai')">Bank Balance</button>
+        <button onclick="quickMessage('OPD kahan hai')">Hospital OPD</button>
+        <button onclick="quickMessage('Platform 2 ka raasta')">Platform 2</button>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Apna prashn likhiye...">
+        <button onclick="startVoice()">🎤</button>
+        <button onclick="sendMessage()">➤</button>
+    </div>
 </div>
 
 <script>
-AWS.config.region = 'ap-southeast-1';
+    const chatBox = document.getElementById("chatBox");
 
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-   IdentityPoolId: 'ap-southeast-1:329e6829-824d-4ac9-8fa2-d7f3ec761a5a'
-});
+    function appendMessage(text, sender) {
+        const msg = document.createElement("div");
+        msg.classList.add("message", sender);
+        msg.innerText = text;
+        chatBox.appendChild(msg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
 
-var lexruntime = new AWS.LexRuntimeV2();
+    function sendMessage() {
+        const input = document.getElementById("userInput");
+        const text = input.value.trim();
+        if (!text) return;
 
-function sendMessage() {
-    var inputText = document.getElementById("userInput").value;
-    document.getElementById("messages").innerHTML += "<div class='user'>You: " + inputText + "</div>";
+        appendMessage(text, "user");
+        input.value = "";
 
-    var params = {
-        botAliasId: "TSTALIASID",
-        botId: "D8UVP7Z4AV",
-        localeId: "en_IN",
-        sessionId: "demo-session",
-        text: inputText
-    };
+        setTimeout(() => {
+            appendMessage("Processing...", "bot");
+        }, 500);
+    }
 
-    lexruntime.recognizeText(params, function(err, data) {
-        if (err) {
-            console.log(err, err.stack);
-        } else {
-            if (data.messages) {
-                document.getElementById("messages").innerHTML += "<div class='bot'>Bot: " + data.messages[0].content + "</div>";
-            }
-        }
-    });
+    function quickMessage(text) {
+        document.getElementById("userInput").value = text;
+        sendMessage();
+    }
 
-    document.getElementById("userInput").value = "";
-}
+    function startVoice() {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = "hi-IN";
+        recognition.start();
+
+        recognition.onresult = function(event) {
+            document.getElementById("userInput").value = event.results[0][0].transcript;
+            sendMessage();
+        };
+    }
 </script>
 
 </body>
