@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SaarthiBot</title>
+<title>SaarthiBot - AI for Bharat</title>
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1483.0.min.js"></script>
 
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#1e3c72,#2a5298);
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,29 +17,54 @@ body {
 }
 
 .chat-container {
-  width: 420px;
-  height: 600px;
+  width: 430px;
+  height: 650px;
   background: #ffffff;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 
 .header {
-  background: #1e3c72;
+  background: #0f2027;
   color: white;
-  text-align: center;
-  padding: 15px;
-  font-size: 20px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  font-size: 16px;
   font-weight: bold;
+}
+
+.badge {
+  background: #ff9933;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  margin-left: 6px;
+}
+
+.header-buttons button {
+  background: white;
+  color: #0f2027;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 .messages {
   flex: 1;
   padding: 15px;
   overflow-y: auto;
+  background: #f4f6fb;
 }
 
 .message {
@@ -47,51 +72,69 @@ body {
   padding: 10px 14px;
   border-radius: 15px;
   max-width: 75%;
+  font-size: 14px;
 }
 
 .bot {
-  background: #f1f1f1;
+  background: #e4e6eb;
 }
 
 .user {
-  background: #2a5298;
+  background: #2c5364;
   color: white;
   margin-left: auto;
 }
 
+.typing {
+  font-style: italic;
+  color: gray;
+}
+
+.suggestions {
+  padding: 6px;
+  text-align: center;
+}
+
+.suggestions button {
+  background: #dde3ec;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px;
+  margin: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
 .input-area {
   display: flex;
-  padding: 10px;
+  padding: 8px;
   border-top: 1px solid #ddd;
 }
 
 input {
   flex: 1;
-  padding: 10px;
+  padding: 8px;
   border-radius: 20px;
   border: 1px solid #ccc;
   outline: none;
 }
 
-button {
-  margin-left: 8px;
-  padding: 10px 15px;
+button.send-btn {
+  margin-left: 6px;
+  padding: 8px 12px;
   border-radius: 20px;
   border: none;
   cursor: pointer;
-  background: #1e3c72;
+  background: #0f2027;
   color: white;
 }
 
-.suggestions {
-  padding: 8px;
+.footer {
   text-align: center;
-}
-
-.suggestions button {
-  background: #ddd;
-  color: black;
-  margin: 4px;
+  font-size: 10px;
+  padding: 6px;
+  background: #f0f2f5;
+  color: #666;
 }
 </style>
 </head>
@@ -99,29 +142,43 @@ button {
 <body>
 
 <div class="chat-container">
-  <div class="header">SaarthiBot 👋</div>
+
+  <div class="header">
+    <div class="header-left">
+      SaarthiBot
+      <span class="badge">AI for Bharat</span>
+    </div>
+    <div class="header-buttons">
+      <button onclick="toggleLanguage()">Lang</button>
+      <button onclick="resetChat()">Reset</button>
+    </div>
+  </div>
 
   <div class="messages" id="chat">
-    <div class="message bot">
+    <div class="message bot" id="welcomeMsg">
       Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?
     </div>
   </div>
 
   <div class="suggestions">
-    <button onclick="quickSend('Mera bank balance kya hai')">Bank Balance</button>
-    <button onclick="quickSend('Platform 2 kahan hai')">Platform 2</button>
-    <button onclick="quickSend('OPD counter kahan hai')">Hospital OPD</button>
+    <button onclick="quickSend('Mera bank balance kya hai')">🏦 Bank</button>
+    <button onclick="quickSend('Platform 2 kahan hai')">🚆 Railway</button>
+    <button onclick="quickSend('OPD counter kahan hai')">🏥 Hospital</button>
   </div>
 
   <div class="input-area">
     <input type="text" id="userInput" placeholder="Type your message...">
     <button onclick="startVoice()">🎤</button>
-    <button onclick="handleSend()">Send</button>
+    <button class="send-btn" onclick="handleSend()">Send</button>
   </div>
+
+  <div class="footer">
+    Powered by AWS Lex • Lambda • Cognito • Amplify
+  </div>
+
 </div>
 
 <script>
-
 AWS.config.region = "ap-southeast-1";
 
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -129,14 +186,13 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 });
 
 const lexruntime = new AWS.LexRuntimeV2();
+let sessionId = crypto.randomUUID();
+let isHindi = true;
 
-/* NEW SESSION EVERY PAGE LOAD */
-const sessionId = crypto.randomUUID();
-
-function addMessage(text, sender) {
+function addMessage(text, sender, className="") {
   const chat = document.getElementById("chat");
   const msg = document.createElement("div");
-  msg.className = "message " + sender;
+  msg.className = "message " + sender + " " + className;
   msg.innerText = text;
   chat.appendChild(msg);
   chat.scrollTop = chat.scrollHeight;
@@ -150,15 +206,9 @@ async function sendToLex(message) {
     sessionId: sessionId,
     text: message
   };
-
-  try {
-    await AWS.config.credentials.getPromise();
-    const response = await lexruntime.recognizeText(params).promise();
-    return response.messages[0].content;
-  } catch (err) {
-    console.error(err);
-    return "Server error occurred.";
-  }
+  await AWS.config.credentials.getPromise();
+  const response = await lexruntime.recognizeText(params).promise();
+  return response.messages[0].content;
 }
 
 async function handleSend() {
@@ -169,13 +219,13 @@ async function handleSend() {
   document.getElementById("userInput").value = "";
 
   const typingMsg = document.createElement("div");
-  typingMsg.className = "message bot";
+  typingMsg.className = "message bot typing";
   typingMsg.innerText = "Typing...";
   document.getElementById("chat").appendChild(typingMsg);
 
   const reply = await sendToLex(input);
-
   typingMsg.remove();
+
   addMessage(reply, "bot");
 }
 
@@ -184,18 +234,32 @@ function quickSend(text) {
   handleSend();
 }
 
-/* VOICE INPUT */
 function startVoice() {
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
   recognition.lang = "en-IN";
   recognition.start();
-
   recognition.onresult = function(event) {
     document.getElementById("userInput").value = event.results[0][0].transcript;
     handleSend();
   };
 }
 
+function resetChat() {
+  sessionId = crypto.randomUUID();
+  document.getElementById("chat").innerHTML = `
+    <div class="message bot">
+      Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?
+    </div>
+  `;
+}
+
+function toggleLanguage() {
+  isHindi = !isHindi;
+  document.getElementById("welcomeMsg").innerText =
+    isHindi
+    ? "Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?"
+    : "Hello 👋 I am Saarthi. How can I assist you today?";
+}
 </script>
 
 </body>
