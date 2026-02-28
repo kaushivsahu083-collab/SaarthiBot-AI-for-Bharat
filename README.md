@@ -1,6 +1,9 @@
-# SaarthiBot – AI for Bharat 🇮🇳
+# SaarthiBot – Voice AI for Bharat 🇮🇳
 
-SaarthiBot is a voice-first AI assistant designed to improve access to public services for illiterate and low-literacy communities in India. The system enables users to access essential information through simple Hindi-style voice interaction.
+SaarthiBot is a voice-based AI assistant built for the AI for Bharat Hackathon.  
+Our goal is simple: make essential public services accessible to people who cannot comfortably read or type.
+
+The assistant allows users to interact using simple spoken Hindi to access banking, railway, and hospital-related information.
 
 ---
 
@@ -10,73 +13,82 @@ Build an AI-powered solution that improves access to information, resources, or 
 
 ---
 
-## 🎯 Our Solution
+## 💡 Our Approach
 
-SaarthiBot is a voice-based AI assistant that allows users to:
+Many public services in India are increasingly digital, but most systems are text-heavy and difficult for illiterate or low-literacy users.
 
-- Check bank balance
-- Get railway timing information
-- Receive platform and ticket counter guidance
-- Access hospital registration assistance
-- Ask general service-related questions through Generative AI
+SaarthiBot solves this by:
 
-The assistant is specifically designed for users who cannot read or type, using simple spoken Hindi responses.
+- Providing voice-first interaction
+- Using simple Hindi-style responses
+- Reducing dependency on written interfaces
+- Supporting access to essential public services
 
 ---
 
-## 🧩 Core Intents
+## 🧩 Current Features
 
-### 🏦 BankBalanceIntent
-- Voice-based bank balance enquiry
-- Hindi-style utterance recognition
-- Simple, direct response for clarity
+### 🏦 Bank Balance Enquiry
+Users can ask for their bank balance using spoken Hindi phrases such as:
+- “Mera bank balance kya hai”
+- “Account mein kitna paisa hai”
 
-### 🚆 RailwayTimingIntent
+The bot responds with a simple voice output.
+
+---
+
+### 🚆 Railway Assistance
+
+**RailwayTimingIntent**
 - Train timing information
-- Next 4-hour train schedule
-- Platform details
+- Next 4-hour schedule queries
+- Platform details (simulated)
 
-### 🧭 RailwayNavigationIntent
-- Platform navigation assistance
-- Ticket counter direction guidance
-
-### 🏥 HospitalHelpIntent
-- Hospital registration guidance
-- OPD enquiry support
-
-### 🤖 Generative FAQ (Amazon Bedrock - Claude)
-- Handles flexible public service questions
-- Generates simple, easy-to-understand responses
-- Improves conversational intelligence
+**RailwayNavigationIntent**
+- Platform direction guidance
+- Ticket counter assistance
 
 ---
 
-## 🏗️ AWS Serverless Architecture
-
-User (Voice Interface)
-        ↓
-Amazon Lex V2 (Intent Recognition & Dialogue Management)
-        ↓
-AWS Lambda (Planned Backend Logic)
-        ↓
-Amazon Bedrock – Claude (Generative AI)
-        ↓
-Amazon Polly (Text-to-Speech)
-        ↓
-User
-
-This architecture ensures scalability, serverless deployment, and managed infrastructure.
+### 🏥 Hospital Guidance (In Progress)
+- Hospital registration support
+- OPD enquiry guidance
 
 ---
 
-## 🛠️ AWS Services Used
+### 🤖 Generative AI Support
 
-- Amazon Lex V2 – Conversational AI
-- Amazon Bedrock (Claude) – Generative AI
-- Amazon Polly – Voice output
-- AWS Lambda – Backend processing (planned)
-- Amazon DynamoDB – Data storage (future scope)
-- Serverless AWS architecture model
+SaarthiBot integrates Amazon Bedrock (Claude) to handle flexible, general public-service-related questions.
+
+This enables more natural and scalable conversational ability beyond fixed intents.
+
+---
+
+## 🏗️ AWS Architecture
+
+Voice User  
+↓  
+Amazon Lex V2 (Intent Recognition & Dialogue Management)  
+↓  
+AWS Lambda (Planned backend integration)  
+↓  
+Amazon Bedrock – Claude (Generative AI responses)  
+↓  
+Amazon Polly (Text-to-Speech)  
+↓  
+Voice Response to User  
+
+This architecture is fully serverless and scalable using AWS managed services.
+
+---
+
+## 🛠 AWS Services Used
+
+- Amazon Lex V2
+- Amazon Bedrock (Claude)
+- Amazon Polly
+- AWS Lambda (planned integration)
+- Serverless AWS infrastructure
 
 ---
 
@@ -86,7 +98,10 @@ This architecture ensures scalability, serverless deployment, and managed infras
 - Hindi-style utterance handling using English-India speech model
 - Voice interaction enabled in AWS console
 - Structured multi-intent architecture
-- Amazon Bedrock integration in progress
+- Bedrock integration in progress
+- Functional prototype built during hackathon phase
+
+*Note: The current prototype uses simulated responses for demonstration purposes.*
 
 ---
 
@@ -94,28 +109,28 @@ This architecture ensures scalability, serverless deployment, and managed infras
 
 - Current prototype demonstrates Hindi-style utterance handling using English-India speech model.
 - Confirmation responses are currently handled using the default English confirmation model.
-- Future enhancement includes native Hindi speech recognition integration.
-- Future work includes training custom confirmation recognition for regional responses like “haan”, “ji”, and “bilkul”.
+- Future enhancement includes native Hindi speech recognition model integration.
+- Future work includes training custom confirmation recognition for regional affirmative responses like “haan”, “ji”, and “bilkul”.
 
 ---
 
 ## 🔮 Future Enhancements
 
-- Native Hindi speech recognition support
-- Multi-state dialect expansion
-- Secure authentication integration (OTP / Aadhaar based)
+- Multi-state dialect support
+- Secure authentication integration
 - Real public service API integration
-- Web-based deployment using AWS Amplify
-- Voice-enabled public kiosk deployment model
+- Web deployment using AWS Amplify
+- Voice-enabled kiosk deployment model for railway stations and hospitals
 
 ---
 
 ## 🌍 Social Impact
 
-SaarthiBot reduces digital exclusion by enabling voice-based access to public services. It empowers underserved communities to independently access information without relying on text-based systems or intermediaries.
+SaarthiBot aims to reduce digital exclusion by enabling voice-based access to public services.  
+It empowers underserved communities to independently access important information without needing to read or navigate complex interfaces.
 
 ---
 
-## 👨‍💻 Developed For
+## 👨‍💻 Built For
 
 AI for Bharat Hackathon – AWS Hack2Skill Prototype Phase
