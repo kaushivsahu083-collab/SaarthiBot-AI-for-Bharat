@@ -28,7 +28,6 @@ body {
   height: 100vh;
 }
 
-/* ===== TOP STRIP ===== */
 .top-strip {
   position: absolute;
   top: 0;
@@ -42,7 +41,6 @@ body {
   border-bottom: 1px solid #dbe6ff;
 }
 
-/* ===== CHAT CONTAINER ===== */
 .chat-container {
   width: 430px;
   height: 650px;
@@ -56,7 +54,6 @@ body {
   margin-top: 40px;
 }
 
-/* ===== HEADER ===== */
 .header {
   background: #0f2027;
   color: white;
@@ -90,7 +87,6 @@ body {
   margin-left: 5px;
 }
 
-/* ===== MESSAGES ===== */
 .messages {
   flex: 1;
   padding: 15px;
@@ -121,7 +117,6 @@ body {
   color: gray;
 }
 
-/* ===== SUGGESTIONS ===== */
 .suggestions {
   padding: 6px;
   text-align: center;
@@ -135,14 +130,8 @@ body {
   margin: 4px;
   font-size: 11px;
   cursor: pointer;
-  transition: 0.2s;
 }
 
-.suggestions button:hover {
-  background: #cbd5e1;
-}
-
-/* ===== INPUT ===== */
 .input-area {
   display: flex;
   padding: 8px;
@@ -167,11 +156,6 @@ button.send-btn {
   color: white;
 }
 
-button.send-btn:hover {
-  background: #203a43;
-}
-
-/* ===== FOOTER ===== */
 .footer {
   text-align: center;
   font-size: 11px;
@@ -185,129 +169,204 @@ button.send-btn:hover {
 <body>
 
 <div class="top-strip">
-  Voice-first AI Public Service Assistant for Bharat 🇮🇳 |
-  Powered by AWS Bedrock • Hybrid AI Architecture • Retrieval Grounded
+Voice-first AI Public Service Assistant for Bharat 🇮🇳 |
+Powered by AWS Bedrock • Hybrid AI Architecture • Retrieval Grounded
 </div>
 
 <div class="chat-container">
 
-  <div class="header">
-    <div class="header-left">
-      SaarthiBot
-      <span class="badge">AI for Bharat</span>
-    </div>
-    <div class="header-buttons">
-      <button onclick="toggleLanguage()">Lang</button>
-      <button onclick="resetChat()">Reset</button>
-    </div>
-  </div>
+<div class="header">
+<div class="header-left">
+SaarthiBot
+<span class="badge">AI for Bharat</span>
+</div>
+<div class="header-buttons">
+<button onclick="toggleLanguage()">Lang</button>
+<button onclick="resetChat()">Reset</button>
+</div>
+</div>
 
-  <div class="messages" id="chat">
-    <div class="message bot" id="welcomeMsg">
-      Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?
-    </div>
-  </div>
+<div class="messages" id="chat">
+<div class="message bot" id="welcomeMsg">
+Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?
+</div>
+</div>
 
-  <div class="suggestions">
-    <button onclick="quickSend('Mera bank balance kya hai')">🏦 Bank</button>
-    <button onclick="quickSend('Platform 2 kahan hai')">🚆 Railway</button>
-    <button onclick="quickSend('OPD counter kahan hai')">🏥 Hospital</button>
-  </div>
+<div class="suggestions">
+<button onclick="quickSend('Mera bank balance kya hai')">🏦 Bank</button>
+<button onclick="quickSend('Platform 2 kahan hai')">🚆 Railway</button>
+<button onclick="quickSend('OPD counter kahan hai')">🏥 Hospital</button>
+</div>
 
-  <div class="input-area">
-    <input type="text" id="userInput" placeholder="Type your message...">
-    <button onclick="startVoice()">🎤</button>
-    <button class="send-btn" onclick="handleSend()">Send</button>
-  </div>
+<div class="input-area">
+<input type="text" id="userInput" placeholder="Type your message...">
+<button onclick="startVoice()">🎤</button>
+<button class="send-btn" onclick="handleSend()">Send</button>
+</div>
 
-  <div class="footer">
-    Built on Amazon Lex • AWS Lambda • Amazon Bedrock • DynamoDB • Amplify
-  </div>
+<div class="footer">
+Built on Amazon Lex • AWS Lambda • Amazon Bedrock • DynamoDB • Amplify
+</div>
 
 </div>
 
 <script>
+
 AWS.config.region = "ap-southeast-1";
 
 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-  IdentityPoolId: "ap-southeast-1:329e6829-824d-4ac9-8fa2-d7f3ec761a5a"
+IdentityPoolId: "ap-southeast-1:329e6829-824d-4ac9-8fa2-d7f3ec761a5a"
 });
 
 const lexruntime = new AWS.LexRuntimeV2();
 let sessionId = crypto.randomUUID();
 let isHindi = true;
 
-function addMessage(text, sender, className="") {
-  const chat = document.getElementById("chat");
-  const msg = document.createElement("div");
-  msg.className = "message " + sender + " " + className;
-  msg.innerText = text;
-  chat.appendChild(msg);
-  chat.scrollTop = chat.scrollHeight;
+function addMessage(text, sender) {
+
+const chat = document.getElementById("chat");
+
+const msg = document.createElement("div");
+
+msg.className = "message " + sender;
+
+msg.innerText = text;
+
+chat.appendChild(msg);
+
+chat.scrollTop = chat.scrollHeight;
+
 }
 
-async function sendToLex(message) {
-  const params = {
-    botId: "D8UVP7Z4AV",
-    botAliasId: "TSTALIASID",
-    localeId: "en_IN",
-    sessionId: sessionId,
-    text: message
-  };
-  await AWS.config.credentials.getPromise();
-  const response = await lexruntime.recognizeText(params).promise();
-  return response.messages[0].content;
+function speakText(text){
+
+window.speechSynthesis.cancel();
+
+const speech = new SpeechSynthesisUtterance(text);
+
+speech.lang="hi-IN";
+
+speech.rate=1;
+
+speech.pitch=1;
+
+window.speechSynthesis.speak(speech);
+
 }
 
-async function handleSend() {
-  const input = document.getElementById("userInput").value;
-  if (!input) return;
+function getConfidence(reply){
 
-  addMessage(input, "user");
-  document.getElementById("userInput").value = "";
+const r=reply.toLowerCase();
 
-  const typingMsg = document.createElement("div");
-  typingMsg.className = "message bot typing";
-  typingMsg.innerText = "Typing...";
-  document.getElementById("chat").appendChild(typingMsg);
+if(r.includes("platform")||r.includes("opd")||r.includes("counter"))
+return "High (Deterministic Routing)";
 
-  const reply = await sendToLex(input);
-  typingMsg.remove();
+if(r.includes("digital india")||r.includes("rashtrapati"))
+return "Medium (Retrieval Grounded Response)";
 
-  addMessage(reply, "bot");
+return "AI Generated (Bedrock Model)";
+
 }
 
-function quickSend(text) {
-  document.getElementById("userInput").value = text;
-  handleSend();
+async function sendToLex(message){
+
+const params={
+botId:"D8UVP7Z4AV",
+botAliasId:"TSTALIASID",
+localeId:"en_IN",
+sessionId:sessionId,
+text:message
+};
+
+await AWS.config.credentials.getPromise();
+
+const response=await lexruntime.recognizeText(params).promise();
+
+return response.messages?.[0]?.content || "Mujhe samajh nahi aaya.";
+
 }
 
-function startVoice() {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.lang = "en-IN";
-  recognition.start();
-  recognition.onresult = function(event) {
-    document.getElementById("userInput").value = event.results[0][0].transcript;
-    handleSend();
-  };
+async function handleSend(){
+
+const input=document.getElementById("userInput").value;
+
+if(!input) return;
+
+addMessage(input,"user");
+
+document.getElementById("userInput").value="";
+
+const typingMsg=document.createElement("div");
+
+typingMsg.className="message bot typing";
+
+typingMsg.innerText="Typing...";
+
+document.getElementById("chat").appendChild(typingMsg);
+
+const reply=await sendToLex(input);
+
+typingMsg.remove();
+
+addMessage(reply,"bot");
+
+speakText(reply);
+
+const confidence=getConfidence(reply);
+
+addMessage("🧠 Confidence: "+confidence,"bot");
+
 }
 
-function resetChat() {
-  sessionId = crypto.randomUUID();
-  document.getElementById("chat").innerHTML = `
-    <div class="message bot">
-      Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?
-    </div>
-  `;
+function quickSend(text){
+
+document.getElementById("userInput").value=text;
+
+handleSend();
+
 }
 
-function toggleLanguage() {
-  isHindi = !isHindi;
-  document.getElementById("welcomeMsg").innerText =
-    isHindi
-    ? "Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?"
-    : "Hello 👋 I am Saarthi. How can I assist you today?";
+function startVoice(){
+
+const recognition=new(window.SpeechRecognition||window.webkitSpeechRecognition)();
+
+recognition.lang="en-IN";
+
+recognition.start();
+
+recognition.onresult=function(event){
+
+document.getElementById("userInput").value=event.results[0][0].transcript;
+
+handleSend();
+
+};
+
 }
+
+function resetChat(){
+
+sessionId=crypto.randomUUID();
+
+document.getElementById("chat").innerHTML=`
+<div class="message bot">
+Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?
+</div>
+`;
+
+}
+
+function toggleLanguage(){
+
+isHindi=!isHindi;
+
+document.getElementById("welcomeMsg").innerText=
+isHindi
+?"Namaste 🙏 Main Saarthi hoon. Aapko kis seva ki jaankari chahiye?"
+:"Hello 👋 I am Saarthi. How can I assist you today?";
+
+}
+
 </script>
 
 </body>
