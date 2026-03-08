@@ -1,5 +1,7 @@
 # SaarthiBot – Voice AI for Bharat 🇮🇳
 
+TEAM-- [VOICE SURYA]
+
 SaarthiBot is a voice-based AI assistant built for the AI for Bharat Hackathon.  
 Our mission is to make essential public services accessible to people who cannot comfortably read or type.
 
@@ -112,7 +114,8 @@ This architecture is fully serverless, scalable, and built using AWS managed ser
 
 - Amazon Lex V2  
 - Amazon Bedrock (Amazon Nova Lite model)  
-- Amazon Polly  
+- Amazon S3(Data storage))
+- Amazon Amplify(application hosting)  
 - AWS Lambda (planned integration)  
 - Serverless AWS infrastructure  
 
@@ -158,3 +161,5 @@ It empowers underserved communities to independently access important informatio
 ## 👨‍💻 Built For
 
 AI for Bharat Hackathon – AWS Hack2Skill Prototype Phase
+
+DEMO VIDEO LINK -- https://drive.google.com/file/d/1M6vMPDr5rukw_8XKmig09HcQHei7uX22/view?usp=drivesdk
