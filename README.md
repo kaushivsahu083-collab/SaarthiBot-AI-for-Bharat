@@ -1,165 +1,234 @@
 # SaarthiBot – Voice AI for Bharat 🇮🇳
 
-TEAM-- [VOICE SURYA]
+![AI for Bharat](https://img.shields.io/badge/Hackathon-AI%20for%20Bharat-orange)
+![AWS](https://img.shields.io/badge/Powered%20by-AWS-yellow)
+![Amazon Lex](https://img.shields.io/badge/Amazon-Lex-blue)
+![Amazon Bedrock](https://img.shields.io/badge/AI-Bedrock-purple)
+![Serverless](https://img.shields.io/badge/Architecture-Serverless-green)
 
-SaarthiBot is a voice-based AI assistant built for the AI for Bharat Hackathon.  
-Our mission is to make essential public services accessible to people who cannot comfortably read or type.
-
-The assistant enables simple Hindi voice interaction for accessing banking, railway, and hospital-related information.
-
----
-
-## 📌 Problem Statement
-
-Build an AI-powered solution that improves access to information, resources, or opportunities for communities and public systems.
+Voice-based AI assistant helping citizens access public services using natural language.
 
 ---
 
-## 💡 Our Approach
+# 👥 Team Information
 
-Many public services in India are digital but text-heavy and difficult for illiterate or low-literacy users.
-
-SaarthiBot solves this by:
-
-- Providing voice-first interaction
-- Using simple spoken Hindi responses
-- Reducing dependency on written interfaces
-- Supporting access to essential public services
+**Team Name:** Voice Surya  
 
 ---
 
-## 🧩 Core Intents
+# 📖 Project Overview
 
-### 🏦 BankBalanceIntent
-Users can ask:
-- “Mera bank balance kya hai”
-- “Account mein kitna paisa hai”
+SaarthiBot is a **voice-based AI assistant** developed for the **AI for Bharat Hackathon**.
 
-The bot responds with a simple, spoken balance message.
+The goal of SaarthiBot is to make essential public services accessible to people who may not be comfortable reading or typing.
 
----
+Users can interact with the system using **simple Hindi voice queries** to receive guidance related to:
 
-### 🚆 Railway Assistance
+- Government schemes
+- Banking assistance
+- Railway station navigation
+- Hospital services
 
-#### RailwayTimingIntent
-- Train timing information
-- Next 4-hour schedule queries
-- Platform details (simulated)
-
-#### RailwayNavigationIntent
-- Platform direction guidance
-- Ticket counter assistance
-
-Example generative response:
-“सबसे पहले टिकट चेक गेट से अंदर जाएं। फिर सबसे नजदीक वाली एस्केलेटर या सीढ़ियों से ऊपर जाएं। वहां से सीधे दाएं मुड़ें और सीधे चलते जाएं, आपको प्लेटफ़ॉर्म नम्बर 3 दिखाई देगा।”
+The system focuses on **voice-first interaction**, making public services more accessible for citizens with **limited digital literacy**.
 
 ---
 
-### 🏥 Hospital Guidance (In Progress)
-- Hospital registration support
-- OPD enquiry assistance
+# 📌 Problem Statement
+
+Many public services in India are available digitally, but they are often **text-heavy and difficult to navigate**.
+
+Citizens who have limited literacy or limited experience using digital platforms often struggle to access these services.
+
+SaarthiBot solves this challenge by enabling **voice-based interaction**, allowing users to ask questions naturally and receive **simple spoken responses**.
 
 ---
 
-## 🤖 Generative AI Integration
+# 💡 Our Approach
 
-SaarthiBot integrates **Amazon Bedrock using the Amazon Nova Lite model** to generate simplified, context-aware responses.
+SaarthiBot provides a **voice-first conversational interface** designed specifically for accessibility.
 
-This allows:
-- Flexible public service question handling
-- Simple Hindi response generation
-- Scalable conversational assistance
+Key principles of our approach:
+
+- Voice interaction instead of complex text interfaces
+- Simple spoken Hindi responses
+- Easy access to essential public services
+- Reduced dependency on digital literacy
+
+This approach allows users to **interact naturally and obtain useful information quickly**.
 
 ---
 
-## 🔍 Prompt Engineering Strategy
+# 🚀 Why SaarthiBot is Innovative
 
-To ensure accessibility for low-literacy users, prompts are designed to:
+SaarthiBot introduces a **voice-first AI interface** designed for communities where literacy and digital accessibility remain major challenges.
 
-- Force short responses
-- Avoid formatting or multiple options
-- Use simple spoken Hindi
-- Provide direct navigation instructions
-- Restrict unnecessary explanations
+Unlike traditional chatbots, SaarthiBot focuses on **natural spoken communication**.
 
-Example prompt structure:
+Key innovations include:
 
-“You are helping a person inside an Indian railway station.  
+- Voice-first design for low-literacy users
+- Simple Hindi conversational responses
+- Generative AI integration for flexible queries
+- Serverless AWS architecture for scalability
+- Potential deployment as **voice kiosks in public spaces**
+
+This makes SaarthiBot a **digital companion that simplifies access to essential services**.
+
+---
+
+# 🧩 Core Intents
+
+## 🏦 BankBalanceIntent
+
+Users can ask questions such as:
+
+- "Mera bank balance kya hai?"
+- "Account mein kitna paisa hai?"
+
+For security reasons, SaarthiBot explains **how users can check their balance through ATM, mobile banking, or bank branch services**.
+
+---
+
+## 🚆 Railway Assistance
+
+### RailwayNavigationIntent
+
+SaarthiBot helps users navigate railway stations.
+
+Example query:
+
+**"Platform number 3 kahan hai?"**
+
+Example response:
+
+"सबसे पहले टिकट चेक गेट से अंदर जाएं। फिर एस्केलेटर या सीढ़ियों से ऊपर जाएं। वहां से दाएं मुड़ें और सीधे चलते जाएं, आपको प्लेटफॉर्म नम्बर 3 दिखाई देगा।"
+
+---
+
+## 🏥 Hospital Guidance
+
+SaarthiBot can also help visitors locate services inside hospitals such as:
+
+- Emergency ward
+- Pharmacy
+- Laboratory
+- Registration desk
+
+This helps users quickly navigate large hospitals.
+
+---
+
+# 🤖 Generative AI Integration
+
+SaarthiBot integrates **Amazon Bedrock (Nova Lite model)** to generate simplified and context-aware responses.
+
+Benefits:
+
+- Handles flexible public service questions
+- Generates simple Hindi responses
+- Enables scalable conversational AI assistance
+
+---
+
+# 🔍 Prompt Engineering Strategy
+
+Prompts are designed specifically for **low-literacy users**.
+
+Prompt guidelines:
+
+- Short responses
+- Simple spoken Hindi
+- No complex formatting
+- Direct navigation instructions
+- Avoid unnecessary explanations
+
+Example prompt:
+
+"You are helping a person inside an Indian railway station.  
 Explain how to reach platform number 3 in very simple spoken Hindi.  
 Keep answer short.  
 No formatting.  
-One paragraph only.”
+One paragraph only."
 
 ---
 
-## 🏗️ AWS Serverless Architecture
+# 🏗 System Architecture
 
-Voice User  
+User Voice Input  
 ↓  
 Amazon Lex V2 (Intent Recognition & Dialogue Management)  
 ↓  
-AWS Lambda (Planned Backend Integration)  
+AWS Lambda (Backend Processing)  
 ↓  
-Amazon Bedrock – Nova Lite (Generative AI Responses)  
+Amazon Bedrock – Nova Lite (Response Generation)  
 ↓  
-Amazon Polly (Text-to-Speech)  
+Amazon Polly (Text to Speech)  
 ↓  
 Voice Response to User  
 
-This architecture is fully serverless, scalable, and built using AWS managed services.
+This architecture is **fully serverless and scalable using AWS services**.
 
 ---
 
-## 🛠 AWS Services Used
+# 🛠 AWS Services Used
 
 - Amazon Lex V2  
-- Amazon Bedrock (Amazon Nova Lite model)  
-- Amazon S3(Data storage))
-- Amazon Amplify(application hosting)  
-- AWS Lambda (planned integration)  
-- Serverless AWS infrastructure  
+- Amazon Bedrock (Nova Lite model)  
+- AWS Lambda  
+- Amazon S3  
+- AWS Amplify  
+- Serverless AWS Infrastructure  
 
 ---
 
-## 🎯 Current Prototype Status
+# 🎯 Current Prototype Status
 
 - Working Amazon Lex V2 chatbot
 - Hindi-style utterance handling using English-India speech model
 - Voice interaction enabled in AWS console
-- Structured multi-intent architecture
-- Amazon Bedrock (Nova Lite) tested and functional
-- Functional hackathon prototype using simulated service responses
+- Multi-intent conversational design
+- Amazon Bedrock Nova Lite integrated
+- Functional prototype with simulated responses
 
 ---
 
-## 🧠 Technical Notes
+# 🧠 Technical Notes
 
 - Current prototype demonstrates Hindi-style utterance handling using English-India speech model.
 - Confirmation responses are currently handled using the default English confirmation model.
 - Future enhancement includes native Hindi speech recognition integration.
-- Future work includes training custom confirmation recognition for regional responses like “haan”, “ji”, and “bilkul”.
+- Future work includes training custom confirmation recognition for responses like **"haan", "ji", and "bilkul"**.
 
 ---
 
-## 🔮 Future Enhancements
+# 🔮 Future Enhancements
 
-- Multi-state dialect support
-- Secure authentication integration
-- Real public service API integration
+- Support for regional languages and dialects
+- Secure authentication for banking services
+- Integration with real public service APIs
 - Web deployment using AWS Amplify
-- Voice-enabled kiosk deployment in railway stations and hospitals
+- Voice-enabled kiosks in railway stations and hospitals
 
 ---
 
-## 🌍 Social Impact
+# 🌍 Social Impact
 
-SaarthiBot aims to reduce digital exclusion by enabling voice-based access to public services.  
-It empowers underserved communities to independently access important information without relying on text-based systems.
+SaarthiBot aims to reduce **digital exclusion** by enabling voice-based access to public services.
+
+The system empowers underserved communities to independently access important information without relying on complex digital interfaces.
 
 ---
 
-## 👨‍💻 Built For
+# 🎥 Demo Video
 
-AI for Bharat Hackathon – AWS Hack2Skill Prototype Phase
+Watch the working prototype:
 
-DEMO VIDEO LINK -- https://drive.google.com/file/d/1M6vMPDr5rukw_8XKmig09HcQHei7uX22/view?usp=drivesdk
+https://drive.google.com/file/d/1M6vMPDr5rukw_8XKmig09HcQHei7uX22/view?usp=drivesdk
+
+---
+
+# 👨‍💻 Built For
+
+**AI for Bharat Hackathon – AWS Hack2Skill Prototype Phase**
+
+Team: **Voice Surya**
