@@ -14,177 +14,108 @@
 
 <body>
 
-<div class="app-container">
-
-
-
-<div class="service-cards">
-
-<button onclick="quickSend('Banking Services')">
-🏦 Banking
-</button>
-
-<button onclick="quickSend('Railway Assistance')">
-🚆 Railway
-</button>
-
-<button onclick="quickSend('Hospital Assistance')">
-🏥 Healthcare
-</button>
-
-<button onclick="quickSend('Scholarship Information')">
-🎓 Scholarships
-</button>
-
-<button onclick="quickSend('Aadhaar Services')">
-🪪 Aadhaar
-</button>
-
-<button onclick="quickSend('Driving Licence Information')">
-🚗 Licence
-</button>
-
-</div>
-
-<div class="tech-stack">
-<h4>Powered By</h4>
-
-<p>Amazon Bedrock</p>
-<p>Amazon Lex</p>
-<p>AWS Lambda</p>
-<p>DynamoDB</p>
-
-</div>
-
-</div>
+<body>
 
 <div class="chat-section">
-  <div class="hero">
 
-<h1>🤖 SaarthiBot</h1>
+```
+<div class="hero">
 
-<p>
-AI-Powered Public Service Assistant for Bharat
-</p>
+    <h1>🤖 SaarthiBot</h1>
 
-<div class="hero-tags">
+    <p>AI-Powered Public Service Assistant for Bharat</p>
 
-<span>🎤 Voice First</span> <span>🌍 Multilingual</span> <span>☁️ AWS Powered</span>
+    <div class="hero-tags">
+        <span>🎤 Voice First</span>
+        <span>🌍 Multilingual</span>
+        <span>☁️ AWS Powered</span>
+    </div>
+
+    <div class="quick-actions">
+
+        <button onclick="quickSend('Scholarships for students')">
+            🎓 Scholarships
+        </button>
+
+        <button onclick="quickSend('Aadhaar update process')">
+            🪪 Aadhaar
+        </button>
+
+        <button onclick="quickSend('Railway enquiry')">
+            🚆 Railway
+        </button>
+
+        <button onclick="quickSend('Banking Services')">
+            🏦 Banking
+        </button>
+
+        <button onclick="quickSend('Hospital Assistance')">
+            🏥 Healthcare
+        </button>
+
+        <button onclick="quickSend('Driving Licence Renewal')">
+            🚗 Licence
+        </button>
+
+    </div>
 
 </div>
-
-<div class="quick-actions">
-
-<button onclick="quickSend('Scholarships for students')">🎓 Scholarships</button>
-
-<button onclick="quickSend('Aadhaar update process')">🪪 Aadhaar</button>
-
-<button onclick="quickSend('Railway enquiry')">🚆 Railway</button>
-
-<button onclick="quickSend('Banking Services')">🏦 Banking</button>
-
-<button onclick="quickSend('Hospital Assistance')">🏥 Healthcare</button>
-
-<button onclick="quickSend('Driving Licence Renewal')">🚗 Licence</button>
-
-</div>
-
-</div>
-
 
 <div class="topbar">
 
-<div>
-<h3>SaarthiBot</h3>
-<span>Voice-first AI Assistant for Bharat</span>
-</div>
+    <div>
+        <h3>SaarthiBot</h3>
+        <span>Voice-first AI Assistant for Bharat</span>
+    </div>
 
-<div>
-
-<button onclick="toggleLanguage()">
-🌐 Language
-</button>
-
-<button onclick="resetChat()">
-🔄 Reset
-</button>
-
-</div>
+    <div>
+        <button onclick="toggleLanguage()">🌐 Language</button>
+        <button onclick="resetChat()">🔄 Reset</button>
+    </div>
 
 </div>
 
 <div class="messages" id="chat">
 
-<div class="welcome-card">
+    <div class="welcome-card">
 
-<h2>🙏 Welcome to SaarthiBot</h2>
+        <h2>🙏 Welcome to SaarthiBot</h2>
 
-<p>I can help with:</p>
+        <p>
+            Ask me about:
+        </p>
 
-<ul>
-<li>🏦 Banking Services</li>
-<li>🚆 Railway Assistance</li>
-<li>🏥 Healthcare Navigation</li>
-<li>🎓 Scholarships</li>
-<li>🪪 Aadhaar Services</li>
-<li>🚗 Driving Licence</li>
-</ul>
+        <ul>
+            <li>Government Schemes</li>
+            <li>Banking Services</li>
+            <li>Railway Assistance</li>
+            <li>Healthcare Information</li>
+            <li>Aadhaar Services</li>
+            <li>Driving Licence Support</li>
+        </ul>
 
-<p>How may I assist you today?</p>
-
-</div>
-
-<div class="architecture-card">
-
-<h3>🏗️ SaarthiBot Architecture</h3>
-
-<div class="flow">
-
-<div class="step">👤 User</div>
-<div class="arrow">↓</div>
-
-<div class="step">🌐 AWS Amplify</div>
-<div class="arrow">↓</div>
-
-<div class="step">🤖 Amazon Lex</div>
-<div class="arrow">↓</div>
-
-<div class="step">⚡ AWS Lambda</div>
-<div class="arrow">↓</div>
-
-<div class="step">🧠 Amazon Bedrock</div>
-<div class="arrow">↓</div>
-
-<div class="step">📚 Knowledge Base</div>
-<div class="arrow">↓</div>
-
-<div class="step">✅ Response</div>
-
-</div>
-
-</div>
+    </div>
 
 </div>
 
 <div class="input-area">
 
-<input
-type="text"
-id="userInput"
-placeholder="Ask anything..."
->
+    <input
+        type="text"
+        id="userInput"
+        placeholder="Ask SaarthiBot anything..."
+    >
 
-<button class="voice-btn" onclick="startVoice()">
-🎤
-</button>
+    <button class="voice-btn" onclick="startVoice()">
+        🎤
+    </button>
 
-<button class="send-btn" onclick="handleSend()">
-Send
-</button>
-
-</div>
+    <button class="send-btn" onclick="handleSend()">
+        Send
+    </button>
 
 </div>
+```
 
 </div>
 
