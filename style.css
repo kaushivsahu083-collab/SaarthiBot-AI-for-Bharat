@@ -188,3 +188,14 @@ cursor:pointer;
 font-style:italic;
 color:#64748b;
 }
+@media(max-width:768px){
+
+.sidebar{
+display:none;
+}
+
+.chat-section{
+width:100%;
+}
+
+}
