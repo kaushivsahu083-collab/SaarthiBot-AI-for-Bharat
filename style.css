@@ -199,3 +199,37 @@ width:100%;
 }
 
 }
+.architecture-card{
+background:white;
+padding:25px;
+border-radius:20px;
+border:1px solid #e5e7eb;
+margin-top:20px;
+max-width:650px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+.architecture-card h3{
+margin-bottom:20px;
+}
+
+.flow{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:8px;
+}
+
+.step{
+background:#eff6ff;
+padding:10px 20px;
+border-radius:12px;
+font-weight:500;
+width:220px;
+text-align:center;
+}
+
+.arrow{
+font-size:20px;
+color:#2563eb;
+}
