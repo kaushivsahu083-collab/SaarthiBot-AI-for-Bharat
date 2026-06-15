@@ -151,9 +151,12 @@ margin-bottom:15px;
 display:flex;
 padding:15px;
 background:white;
-border-top:1px solid #e5e7eb;
+margin:20px;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
 gap:10px;
 }
+
 
 #userInput{
 flex:1;
@@ -233,3 +236,62 @@ text-align:center;
 font-size:20px;
 color:#2563eb;
 }
+.hero{
+text-align:center;
+padding:40px 20px;
+background:
+linear-gradient(
+135deg,
+#eef4ff,
+#f5f3ff
+);
+border-bottom:1px solid #e5e7eb;
+}
+
+.hero h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:18px;
+color:#64748b;
+margin-bottom:20px;
+}
+
+.hero-tags{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap;
+margin-bottom:25px;
+}
+
+.hero-tags span{
+background:white;
+padding:8px 14px;
+border-radius:999px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.quick-actions{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.quick-actions button{
+border:none;
+background:white;
+padding:12px 18px;
+border-radius:999px;
+cursor:pointer;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+transition:.2s;
+}
+
+.quick-actions button:hover{
+transform:translateY(-2px);
+}
+
